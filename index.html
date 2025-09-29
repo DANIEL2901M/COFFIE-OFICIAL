@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Daniel Vargas Donaires - Coffee Time</title>
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#2f3438;
+      --teal:#24b0a6;
+      --card:#1f2629;
+      --muted:#bfc6c8;
+      --glass: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: #eef2f3;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* Layout */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:20px 3%;
+      max-width:1200px;
+      margin:0 auto;
+      position:relative;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .logo{
+      width:56px;
+      height:56px;
+      border-radius:10px;
+      background:linear-gradient(135deg,#3a3f42, #000);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:var(--teal);
+      box-shadow:0 6px 18px rgba(0,0,0,0.6);
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:0.95rem;
+    }
+    nav a:hover{color:#fff}
+
+    /* Hamburger */
+    .hamburger{
+      display:none;
+      flex-direction: column;
+      cursor: pointer;
+      width:28px;
+      height:22px;
+      justify-content: space-between;
+    }
+    .hamburger div{
+      height:3px;
+      background: var(--muted);
+      border-radius:2px;
+      transition: 0.3s;
+    }
+    .hamburger.active div:nth-child(1){
+      transform: rotate(45deg) translate(5px,5px);
+    }
+    .hamburger.active div:nth-child(2){
+      opacity:0;
+    }
+    .hamburger.active div:nth-child(3){
+      transform: rotate(-45deg) translate(5px,-5px);
+    }
+
+    /* Hero */
+    .hero{
+      max-width:1200px;
+      margin:12px auto;
+      display:grid;
+      grid-template-columns: 1fr 480px;
+      gap:30px;
+      align-items:center;
+      padding:0 3%;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
+      padding:36px;
+      border-radius:18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero h1{
+      margin:0 0 12px 0;
+      font-family: "Pacifico", cursive;
+      font-size:48px;
+      color:#fff;
+      letter-spacing:1px;
+    }
+    .hero p.lead{
+      margin:0 0 20px 0;
+      color:var(--muted);
+      max-width:52ch;
+    }
+    .cta{
+      display:inline-block;
+      background:var(--teal);
+      color:#fff;
+      padding:12px 18px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:600;
+      box-shadow:0 8px 18px rgba(36,176,166,0.18);
+    }
+
+    .hero-preview{
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+      background: linear-gradient(180deg,#101418, #161a1d);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+    .hero-preview img{
+      width:100%;
+      height:auto;
+      display:block;
+      object-fit:cover;
+      max-height:420px;
+    }
+
+    /* Wave divider */
+    .wave{
+      margin-top:28px;
+      width:100%;
+      display:block;
+    }
+
+    /* Sections */
+    .section{
+      max-width:1200px;
+      margin:36px auto;
+      padding:0 3%;
+      display:grid;
+      gap:22px;
+    }
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:18px;
+    }
+    .card{
+      background:var(--card);
+      padding:18px;
+      border-radius:14px;
+      text-align:center;
+      min-height:220px;
+    }
+    .card img{
+      width:100%;
+      border-radius:8px;
+      height:120px;
+      object-fit:cover;
+      margin-bottom:12px;
+    }
+    .card h4{margin:0 0 6px 0}
+    .card p{color:var(--muted); font-size:0.95rem}
+
+    /* About/Info strip */
+    .strip{
+      background:var(--teal);
+      color:#033232;
+      border-radius:14px;
+      padding:22px;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .strip .open-hours{font-weight:600}
+    .strip small{display:block;color:rgba(0,0,0,0.6)}
+
+    footer{
+      max-width:1200px;
+      margin:28px auto 80px;
+      padding:0 3%;
+      color:var(--muted);
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr; padding-bottom:0; text-align:center;}
+      .hero-preview{max-height:300px; margin:0 auto;}
+      .cards{grid-template-columns: repeat(2, 1fr);}
+    }
+    @media (max-width:640px){
+      header{padding:14px; flex-direction: column; align-items:center; gap:10px;}
+      nav{
+        display:none;
+        flex-direction: column;
+        gap:12px;
+        position: absolute;
+        top:70px;
+        right:3%;
+        background: var(--card);
+        padding:12px 18px;
+        border-radius:12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        z-index:100;
+      }
+      nav.active{
+        display:flex;
+      }
+      .hamburger{display:flex;}
+      .hero{gap:14px;}
+      .hero h1{font-size:34px;}
+      .hero p.lead{font-size:0.95rem;}
+      .cards{grid-template-columns:1fr;}
+      .strip{flex-direction:column; align-items:flex-start;}
+      footer{flex-direction:column; text-align:center;}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="logo">DV</div>
+      <div>
+        <div style="font-weight:600">Daniel Vargas Donaires Y Katherine Salazar</div>
+        <div style="font-size:0.82rem;color:var(--muted)">Desarrolladores · Portafolio Grupal</div>
+      </div>
+    </div>
+
+    <!-- Hamburger -->
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <nav id="nav">
+      <a href="https://daniel2901m.github.io/COFFE-TIME/">Inicio</a>
+      <a href="https://daniel2901m.github.io/Tipos-De-Cafe/">Tipos de Café</a>
+      <a href="https://daniel2901m.github.io/Beneficios/">Beneficios</a>
+      <a href="https://daniel2901m.github.io/TRABAJA-CON-NOSOTROS/">Trabaja con Nosotros</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-card">
+      <h1>Coffee Time</h1>
+      <p class="lead">Bienvenido a la demo de sitio web de catálogo tipo 'Coffee'. Esta página fue creada por <strong>Daniel Vargas Donaires y Katherine Salazar</strong>. Un negocio exclusivo para quienes desean experimentar algo más que un café.</p>
+      <a class="cta" href="#coffees">Ver Cafés</a>
+
+      <svg class="wave" viewBox="0 0 1200 120" preserveAspectRatio="none" style="height:80px;display:block">
+        <path d="M0,0 C150,100 350,0 600,45 C850,90 1050,10 1200,80 L1200,120 L0,120 Z" fill="var(--teal)"></path>
+      </svg>
+
+      <div style="margin-top:18px;color:var(--muted);font-size:0.95rem">
+        <strong>Nuestros Cafes:</strong> Una exquisita forma de disfrutar una experiencia inolvidable para quienes aman un sorbo de paz.
+      </div>
+    </div>
+
+    <aside class="hero-preview" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=1c7d959a7a0ad1d7f0f2f7bf3c9a5eef" alt="Coffees">
+    </aside>
+  </section>
+
+  <!-- CAFÉS -->
+  <section class="section" id="coffees" aria-label="Cafés">
+    <h2 style="margin:0 0 8px 0;font-size:1.4rem">Nuestros cafés</h2>
+    <p style="margin:0 0 18px 0;color:var(--muted)">Espresso, Ristretto, Lungo, Americano, Cappuccino, Latte, Macchiato, Flat White, Frappé, Cold Brew, Iced Coffee, Mocha, Irish Coffee, Bombón y Affogato.</p>
+
+    <div class="cards">
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=2b2f1a6fdb1f384f6f4b2a5b7b1b9f4a" alt="Black coffee">
+        <h4>Black Coffees</h4>
+        <p>Selección de cafés negros — fuerte, aromático y clásico.</p>
+      </article>
+
+      <article class="card">
+        <img src="https://i.postimg.cc/Qx5z8Rmk/istockphoto-1467739359-612x612.jpg" alt="Latte">
+        <h4>Milky & Lattes</h4>
+        <p>Espressos con leche, cappuccinos y bebidas cremosas para todos los gustos.</p>
+      </article>
+
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=3c7cfa4e6b1b5a3c9c2a5b8f7d6e4a1b" alt="Hot coffee">
+        <h4>Hot Coffees</h4>
+        <p>Bebidas calientes ideales para las mañanas frías y tardes de estudio.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Sucursales / Info strip -->
+  <section class="section" id="branches">
+    <div class="strip" role="region" aria-label="horarios">
+      <div>
+        <strong>Nuestras sucursales</strong>
+        <div style="font-size:0.95rem;color:rgba(0,0,0,0.55)">Lima · Arequipa · Cusco</div>
+      </div>
+      <div class="open-hours">
+        Horarios: <small>Lun - Vie: 9:00 - 21:00 · Sáb - Dom: 10:00 - 20:00</small>
+      </div>
+      <div style="text-align:right">
+        <div style="font-weight:700">¿Quieres ordenar?</div>
+        <small>Contáctanos en: Daniel@interprise.com</small>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px">
+      <div style="background:var(--card);padding:18px;border-radius:12px">
+        <h3 style="margin-top:0">Acerca de Daniel</h3>
+        <p style="color:var(--muted)">Proyecto de demostración web hecho por <strong>Daniel Vargas Donaires y Katherine Salazar</strong>. Trabajo progresivo.</p>
+      </div>
+      <div style="background:var(--card);padding:18px;border-radius:12px">
+        <h3 style="margin-top:0">☕ Cafés Exclusivos y Personalizados</h3>
+        <ol style="color:var(--muted);margin:0;padding-left:18px">
+          <li>Elige tu base → Espresso, americano, cold brew o latte.</li>
+          <li>Agrega tu toque → Sabores como vainilla, caramelo, avellana, canela o chocolate.</li>
+          <li>Personaliza tu estilo → Con leche de tu preferencia (entera, deslactosada, almendra, avena, soya).</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div>
+      <strong>Daniel Vargas Donaires y Katherine Salazar</strong><br>
+      <small style="color:var(--muted)">Portafolio · Proyecto demostrativo</small>
+    </div>
+
+    <div style="text-align:right">
+      <div style="font-weight:600">Sígueme</div>
+      <div style="color:var(--muted);font-size:0.95rem">Facebook · WhatsApp · Daniel@interprise.com</div>
+    </div>
+  </footer>
+
+  <!-- JS para menú hamburguesa -->
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('nav');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      nav.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>
